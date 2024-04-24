@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -33,7 +34,7 @@ const formSchema = z.object({
 export default function LoginForm() {
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
-        mode: 'onChange',
+        mode: "onChange",
         resolver: zodResolver(formSchema),
         defaultValues: {
             Email: "",
@@ -53,12 +54,12 @@ export default function LoginForm() {
             <p className="mb-8">
                 {" "}
                 Don't have an account?{" "}
-                <a
-                    href=""
+                <Link
+                    to="/signup"
                     className="text-gray-400 underline hover:text-blue-400"
                 >
-                    Signup
-                </a>
+                    Sign up
+                </Link>
             </p>
             <Form {...form}>
                 <form
@@ -101,7 +102,7 @@ export default function LoginForm() {
                         className="mt-4 min-w-full rounded-xl bg-[#fb815a] px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-gray-500"
                         type="submit"
                     >
-                        Login
+                        Log in
                     </Button>
                 </form>
             </Form>
