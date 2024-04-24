@@ -12,6 +12,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
 
 const formSchema = z.object({
     Email: z.string().email({
@@ -32,6 +33,8 @@ const formSchema = z.object({
 });
 
 export default function LoginForm() {
+    const { login } = useAuth();
+
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         mode: "onChange",
@@ -47,6 +50,7 @@ export default function LoginForm() {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values);
+        login({ email: values.Email });
     }
 
     return (
