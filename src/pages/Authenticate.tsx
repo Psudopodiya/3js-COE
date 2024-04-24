@@ -7,8 +7,8 @@ type Props = {
 const Authentication = ({ children }: Props) => {
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#fb815a]">
-            <div className="flex min-w-[70%] justify-center gap-4 rounded-3xl bg-white p-10 shadow-2xl">
-                <div className="flex w-1/2 flex-col items-center py-6">
+            <div className="flex min-h-[80vh] min-w-[70%] justify-center gap-4 rounded-3xl bg-white p-10 shadow-2xl">
+                <div className="my-auto flex w-1/2 flex-col items-center">
                     <div className="flex min-w-[70%] flex-col gap-2">
                         <div className="flex items-center gap-2">
                             {/* <img src={Logo} alt="logo" className="size-10" /> */}
