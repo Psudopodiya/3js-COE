@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -58,20 +59,19 @@ export default function SignUp() {
             <p className="mb-8">
                 {" "}
                 Already have an account?{" "}
-                <a
-                    href=""
+                <Link
+                    to="/login"
                     className="text-gray-400 underline hover:text-blue-400"
                 >
-                    Sign in
-                </a>
+                    Log in
+                </Link>
             </p>
-            <Form {...form} className="">
+            <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-6"
                 >
                     <FormField
-                        className="space-y-0"
                         control={form.control}
                         name="username"
                         render={({ field }) => (
@@ -94,7 +94,7 @@ export default function SignUp() {
                             <FormItem>
                                 <FormControl>
                                     <Input
-                                        placeholder="example@consultadd.com"
+                                        placeholder="Email"
                                         {...field}
                                         className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
                                     />

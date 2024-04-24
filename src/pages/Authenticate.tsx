@@ -20,13 +20,13 @@ const Authentication = ({ children }: Props) => {
                 </div>
 
                 <div className="flex  w-1/2 flex-col items-center rounded-3xl bg-orange-300">
-                    <div
+                    {/* <div
                         className="h-[65%] w-full rounded-t-3xl bg-contain"
                         // style={{ backgroundImage: `url(${abstractImage})` }}
                     ></div>
                     <div className="mt-16 text-3xl font-bold">
                         Create your own courses
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
