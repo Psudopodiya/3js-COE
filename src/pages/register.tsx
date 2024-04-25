@@ -1,8 +1,8 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const signupSchema = z
+const registerSchema = z
     .object({
         username: z.string().min(1, { message: "Username cannot be empty" }),
         email: z.string().email({ message: "Invalid Email address" }),
@@ -36,12 +36,12 @@ const signupSchema = z
         path: ["confirm_password"],
     });
 
-// type SignUpFromValues = z.infer<typeof signupSchema>;
+type RegisterFromValues = z.infer<typeof registerSchema>;
 
-export default function SignUp() {
-    const form = useForm<z.infer<typeof signupSchema>>({
+export default function RegisterPage() {
+    const form = useForm<RegisterFromValues>({
         mode: "onChange",
-        resolver: zodResolver(signupSchema),
+        resolver: zodResolver(registerSchema),
         defaultValues: {
             username: "",
             email: "",
@@ -50,7 +50,7 @@ export default function SignUp() {
         },
     });
 
-    function onSubmit(data: z.infer<typeof signupSchema>) {
+    function onSubmit(data: z.infer<typeof registerSchema>) {
         console.log(data);
     }
 

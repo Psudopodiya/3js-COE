@@ -32,7 +32,7 @@ const formSchema = z.object({
         }),
 });
 
-export default function LoginForm() {
+export default function LoginPage() {
     const { login } = useAuth();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -56,10 +56,10 @@ export default function LoginForm() {
                 {" "}
                 Don't have an account?{" "}
                 <Link
-                    to="/signup"
+                    to="/register"
                     className="text-gray-400 underline hover:text-blue-400"
                 >
-                    Sign up
+                    Register
                 </Link>
             </p>
             <Form {...form}>

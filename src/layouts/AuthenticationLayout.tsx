@@ -1,11 +1,12 @@
 import React from "react";
+
 import Logo from "@/assets/consultadd.png";
 
 type Props = {
-    children?: React.ReactElement;
+    children?: React.ReactNode;
 };
 
-const Authentication = ({ children }: Props) => {
+const AuthenticationLayout = ({ children }: Props) => {
     return (
         <div className="flex min-h-screen items-center justify-center bg-[#fb815a]">
             <div className="flex min-h-[80vh] min-w-[70%] justify-center gap-4 rounded-3xl bg-white p-10 shadow-2xl">
@@ -19,11 +20,10 @@ const Authentication = ({ children }: Props) => {
                     </div>
                 </div>
 
-                <div className="flex  w-1/2 flex-col items-center rounded-3xl bg-[#fb815a]">
-                </div>
+                <div className="flex  w-1/2 flex-col items-center rounded-3xl bg-[#fb815a]"></div>
             </div>
         </div>
     );
 };
 
-export default Authentication;
+export default AuthenticationLayout;

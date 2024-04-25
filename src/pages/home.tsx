@@ -1,8 +1,8 @@
 import { useAuth } from "@/contexts/AuthContext";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
-export default function Home() {
+export default function HomePage() {
     const { logout } = useAuth();
 
     return (
