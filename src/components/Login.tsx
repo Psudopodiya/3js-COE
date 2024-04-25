@@ -25,7 +25,7 @@ const formSchema = z.object({
             message: "Password must contain lowercase character",
         })
         .regex(/[A-Z]/, {
-            message: "Password must uppercase character",
+            message: "Password must contain uppercase character",
         })
         .regex(/[!@#$%^&*(),.?":{}|<>]/, {
             message: "Password must contain at least one symbol",
@@ -35,7 +35,6 @@ const formSchema = z.object({
 export default function LoginForm() {
     const { login } = useAuth();
 
-    // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         mode: "onChange",
         resolver: zodResolver(formSchema),
@@ -47,8 +46,6 @@ export default function LoginForm() {
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
         console.log(values);
         login({ email: values.Email });
     }
@@ -90,9 +87,10 @@ export default function LoginForm() {
                         control={form.control}
                         name="Password"
                         render={({ field }) => (
-                            <FormItem className="">
+                            <FormItem>
                                 <FormControl>
                                     <Input
+                                        type="password"
                                         placeholder="Password"
                                         {...field}
                                         className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
@@ -103,7 +101,7 @@ export default function LoginForm() {
                         )}
                     />
                     <Button
-                        className="mt-4 min-w-full rounded-xl bg-[#fb815a] px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-gray-500"
+                        className="mt-4 min-w-full rounded-xl bg-[#fb815a] px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-[#FF5F2A]"
                         type="submit"
                     >
                         Log in

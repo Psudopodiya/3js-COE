@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "@/assets/consultadd.png";
 
 type Props = {
     children?: React.ReactElement;
@@ -11,22 +12,14 @@ const Authentication = ({ children }: Props) => {
                 <div className="my-auto flex w-1/2 flex-col items-center">
                     <div className="flex min-w-[70%] flex-col gap-2">
                         <div className="flex items-center gap-2">
-                            {/* <img src={Logo} alt="logo" className="size-10" /> */}
-                            <p className="text-xl"> easyclass</p>
+                            <img src={Logo} alt="logo" className="w-[8rem]" />
                         </div>
                         <h1 className="text-5xl font-bold">Get started</h1>
                         {children}
                     </div>
                 </div>
 
-                <div className="flex  w-1/2 flex-col items-center rounded-3xl bg-orange-300">
-                    {/* <div
-                        className="h-[65%] w-full rounded-t-3xl bg-contain"
-                        // style={{ backgroundImage: `url(${abstractImage})` }}
-                    ></div>
-                    <div className="mt-16 text-3xl font-bold">
-                        Create your own courses
-                    </div> */}
+                <div className="flex  w-1/2 flex-col items-center rounded-3xl bg-[#fb815a]">
                 </div>
             </div>
         </div>
