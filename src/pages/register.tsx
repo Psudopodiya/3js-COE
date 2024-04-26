@@ -110,6 +110,7 @@ export default function RegisterPage() {
                             <FormItem>
                                 <FormControl>
                                     <Input
+                                        type="password"
                                         placeholder="Password"
                                         {...field}
                                         className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
@@ -126,6 +127,7 @@ export default function RegisterPage() {
                             <FormItem>
                                 <FormControl>
                                     <Input
+                                        type="password"
                                         placeholder="Confirm password"
                                         {...field}
                                         className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
