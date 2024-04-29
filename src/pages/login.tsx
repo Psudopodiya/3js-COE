@@ -57,7 +57,7 @@ export default function LoginPage() {
                 Don't have an account?{" "}
                 <Link
                     to="/register"
-                    className="text-gray-400 underline hover:text-blue-400"
+                    className="text-slate-200 underline hover:text-blue-400"
                 >
                     Register
                 </Link>
@@ -76,7 +76,7 @@ export default function LoginPage() {
                                     <Input
                                         placeholder="Email"
                                         {...field}
-                                        className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
+                                        className="border-0 border-b-[1px] border-gray-400 px-0 text-base shadow-none"
                                     />
                                 </FormControl>
                                 <FormMessage className="text-red-500" />
@@ -93,7 +93,7 @@ export default function LoginPage() {
                                         type="password"
                                         placeholder="Password"
                                         {...field}
-                                        className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
+                                        className="border-0 border-b-[1px] border-gray-400 px-0 text-base shadow-none"
                                     />
                                 </FormControl>
                                 <FormMessage className="text-red-500" />
@@ -101,7 +101,7 @@ export default function LoginPage() {
                         )}
                     />
                     <Button
-                        className="mt-4 min-w-full rounded-xl bg-[#fb815a] px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-[#FF5F2A]"
+                        className="mt-4 min-w-full rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-[#FF5F2A]"
                         type="submit"
                     >
                         Log in

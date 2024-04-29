@@ -8,7 +8,7 @@ export default function HomePage() {
     return (
         <div>
             <Button
-                className="absolute right-4 top-4"
+                className="absolute right-4 top-4 text-white"
                 variant="secondary"
                 size="lg"
                 onClick={logout}
