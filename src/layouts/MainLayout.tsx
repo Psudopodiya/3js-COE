@@ -7,7 +7,7 @@ type Props = {
 };
 
 const MainLayout = ({ children }: Props) => {
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -23,7 +23,7 @@ const MainLayout = ({ children }: Props) => {
 
         // Add renderer to the container
         renderer.setSize(window.innerWidth, window.innerHeight);
-        containerRef.current.appendChild(renderer.domElement);
+        containerRef.current?.appendChild(renderer.domElement);
 
         // Function to handle window resize
         const handleResize = () => {
@@ -45,7 +45,7 @@ const MainLayout = ({ children }: Props) => {
         // Clean up
         return () => {
             window.removeEventListener("resize", handleResize);
-            containerRef.current.removeChild(renderer.domElement);
+            containerRef.current?.removeChild(renderer.domElement);
         };
     }, []);
 
