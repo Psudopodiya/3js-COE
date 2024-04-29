@@ -3,11 +3,14 @@ import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { AuthContext } from "./contexts";
 import { router } from "./router";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
     return (
         <AuthContext>
-            <RouterProvider router={router} />
+            <MainLayout>
+                <RouterProvider router={router} />
+            </MainLayout>
         </AuthContext>
     );
 }
