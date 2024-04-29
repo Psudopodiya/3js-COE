@@ -54,11 +54,12 @@ const MainLayout = ({ children }: Props) => {
             ref={containerRef}
             className='h-[100vh] w-[100vw] overflow-hidden items-center'
         > 
-            <div className="h-[100vh] w-[100vw]">
+            <Spline className="absolute top-0 left-0" scene="https://prod.spline.design/mV5nfwaATZXRyD7U/scene.splinecode" />
+            <div className="h-[100vh] w-[100vw] pointer-events-auto" >
               {children}
             </div>
             
-            <Spline className="absolute top-0 left-0 -z-10" scene="https://prod.spline.design/mV5nfwaATZXRyD7U/scene.splinecode" />
+            
         </div>
     );
 };
