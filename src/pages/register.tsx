@@ -136,7 +136,7 @@ export default function RegisterPage() {
                     />
                     <Button
                         type="submit"
-                        className="min-w-full rounded-xl bg-[#fb815a] px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-[#f8754a]"
+                        className="mt-4 min-w-full rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-6 text-white transition duration-300 ease-in-out"
                     >
                         Sign up
                     </Button>

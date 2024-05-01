@@ -98,7 +98,7 @@ export default function LoginPage() {
                         )}
                     />
                     <Button
-                        className="mt-4 min-w-full rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-[#FF5F2A]"
+                        className="mt-4 min-w-full rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-6 text-white transition duration-300 ease-in-out"
                         type="submit"
                     >
                         Log in
