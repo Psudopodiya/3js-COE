@@ -14,7 +14,13 @@ export default function ModelLoader() {
 
     console.log(model);
     return (
-        <Canvas className="absolute left-0 top-0 -z-10">
+        <Canvas
+            style={{
+                position: "absolute",
+                inset: "0px",
+                zIndex: "0",
+            }}
+        >
             <Suspense fallback={<Loader />}>
                 <ambientLight intensity={1.5} />
                 <directionalLight position={[10, 10, 10]} />

@@ -9,9 +9,9 @@ const MainLayout = ({ children }: Props) => {
     return (
         <>
             <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
-                <div className="pointer-events-auto">{children}</div>
+                <div className="relative z-10">{children}</div>
+                <ModelLoader />
             </div>
-            <ModelLoader />
         </>
     );
 };
