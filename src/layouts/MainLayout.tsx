@@ -1,15 +1,15 @@
-import ModelLoader from "@/components/SpaceModel";
+import { Outlet } from "react-router-dom";
+import SpaceModel from "@/components/SpaceModel";
 
-type Props = {
-    children?: React.ReactNode;
-};
-
-const MainLayout = ({ children }: Props) => {
+const MainLayout = () => {
     return (
         <>
             <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
-                <div className="relative z-10">{children}</div>
-                <ModelLoader />
+                <div className="relative z-10">
+                    {" "}
+                    <Outlet />
+                </div>
+                <SpaceModel />
             </div>
         </>
     );
