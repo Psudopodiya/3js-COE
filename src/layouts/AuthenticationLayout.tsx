@@ -15,7 +15,7 @@ const AuthenticationLayout = ({ children }: Props) => {
                         <div className="flex items-center gap-2">
                             <img src={Logo} alt="logo" className="w-[8rem]" />
                         </div>
-                        <h1 className="text-5xl font-bold ">Get started</h1>
+                        <h1 className="text-5xl font-bold">Get started</h1>
                         {children}
                     </div>
                 </div>

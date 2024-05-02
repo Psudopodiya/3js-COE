@@ -1,29 +1,33 @@
+import * as THREE from "three";
 import { Suspense, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { gsap } from "gsap";
+import { useNavigate } from "react-router-dom";
 import {
     OrbitControls,
     Loader,
     useGLTF,
     PerspectiveCamera,
 } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import * as THREE from "three";
-import { gsap } from "gsap";
+
+const subject_list = [
+    "Sphere",
+    "Sphere 2",
+    "Sphere 3",
+    "Sphere 4",
+    "Sphere 5",
+    "Ellipse",
+    "Ellipse 2",
+    "Ellipse 3",
+];
 
 export default function SpaceModel() {
     const model = useGLTF("./space_dreamscape.glb");
+
+    const navigate = useNavigate();
     const cameraRef = useRef<any>();
 
     const handleClick = (event: any) => {
-        const subject_list = [
-            "Sphere",
-            "Sphere 2",
-            "Sphere 3",
-            "Sphere 4",
-            "Sphere 5",
-            "Ellipse",
-            "Ellipse 2",
-            "Ellipse 3",
-        ];
         let planet = event.object;
 
         if (subject_list.includes(planet.userData.name)) {
@@ -37,6 +41,10 @@ export default function SpaceModel() {
                 y: -1 * center.y,
                 z: -0.05 * center.z,
             });
+
+            if (planet.userData.name == "Sphere 4") {
+                navigate("/python");
+            }
         }
     };
 
