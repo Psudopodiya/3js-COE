@@ -54,6 +54,7 @@ export default function SpaceModel() {
                 position: "absolute",
                 inset: "0px",
                 zIndex: "0",
+                cursor: "pointer",
             }}
         >
             <Suspense fallback={<Loader />}>
