@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const PublicRoute = () => {
     const { isAuthenticated } = useAuth();
 
-    return isAuthenticated === false ? <Outlet /> : <Navigate to="/" />;
+    return !isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PublicRoute;
