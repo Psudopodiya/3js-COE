@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import OceanModel from "@/components/OceanModel.tsx";
 import BoatModel from "@/components/BoatModel";
+import PythonModel from "@/components/PythonModel.tsx";
 
 extend({ OrthographicCamera, OrbitControls });
 
@@ -19,7 +20,7 @@ const MainLayout = () => {
                     position: "absolute",
                     inset: "0px",
                     zIndex: "0",
-                    cursor: "pointer",
+                    cursor: "pointer"
                 }}
             >
                 <Suspense>
@@ -31,14 +32,13 @@ const MainLayout = () => {
                         <group>
                             <OceanModel />
                             <BoatModel />
+                            <PythonModel />
                         </group>
                         <OrbitControls
                             minPolarAngle={Math.PI / 4 + Math.PI / 6}
                             maxPolarAngle={Math.PI / 2 + Math.PI / 6}
                             minAzimuthAngle={-Math.PI / 24}
                             maxAzimuthAngle={Math.PI / 24}
-                            maxDistance={10}
-                            minDistance={0}
                         />
                     </OrthographicCamera>
                 </Suspense>
