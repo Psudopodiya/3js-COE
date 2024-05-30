@@ -2,11 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 
 import {
     AuthenticationLayout,
+    MainLayout,
     PrivateRoute,
     PublicRoute,
-    MainLayout,
 } from "@/layouts";
-import { HomePage, LoginPage, RegisterPage, PythonHomePage } from "@/pages";
+import { LoginPage, RegisterPage } from "@/pages";
 
 const router = createBrowserRouter([
     {
@@ -16,16 +16,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <PrivateRoute />,
-                children: [
-                    {
-                        index: true,
-                        element: <HomePage />,
-                    },
-                    {
-                        path: "/python",
-                        element: <PythonHomePage />,
-                    },
-                ],
             },
             {
                 path: "/",

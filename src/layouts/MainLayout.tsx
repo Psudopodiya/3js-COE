@@ -9,19 +9,26 @@ import {
 } from "@react-three/drei";
 import { Canvas, extend } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { Suspense, useState } from "react";
+
+import PythonHome from "@/pages/pythonHome.tsx";
 
 extend({ OrthographicCamera, OrbitControls });
 
 const MainLayout = () => {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const openPython = () => setIsModalOpen(true);
+    const closePython = () => setIsModalOpen(false);
+
+    const map = isModalOpen ? [] : keyboardMap;
+
     return (
         <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
             <div className="relative z-10">
-                {" "}
-                <Outlet />
+                {isModalOpen && <PythonHome closeModal={closePython} />}
             </div>
-            <KeyboardControls map={keyboardMap}>
+            <KeyboardControls map={map}>
                 <Canvas
                     style={{
                         position: "absolute",
@@ -37,7 +44,7 @@ const MainLayout = () => {
                                 <group>
                                     <OceanModel />
                                     <BoatModel />
-                                    <PythonModel />
+                                    <PythonModel openModal={openPython} />
                                 </group>
                                 <OrbitControls
                                     minPolarAngle={Math.PI / 4 + Math.PI / 6}
