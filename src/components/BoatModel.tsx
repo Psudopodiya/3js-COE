@@ -5,11 +5,11 @@ import { useRef, useState } from "react";
 
 import * as THREE from "three";
 
-const impulseStrength = 1000;
-const torqueStrength = 1000;
+const impulseStrength = 5000;
+const torqueStrength = 5000;
 
 export default function OceanModel() {
-    const { nodes } = useGLTF("./toon_sea.glb");
+    const { nodes } = useGLTF("./boat.glb");
     const [, getKeys] = useKeyboardControls();
 
     const boatRef = useRef<RigidBody>(null);
@@ -67,7 +67,7 @@ export default function OceanModel() {
             restitution={0.2}
             linearDamping={0.5}
             angularDamping={0.5}
-            colliders="trimesh"
+            colliders="cuboid"
         >
             <primitive
                 object={nodes.Canoe}

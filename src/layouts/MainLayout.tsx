@@ -33,7 +33,7 @@ const MainLayout = () => {
                     <Physics debug gravity={[0, -9.8, 0]}>
                         <Suspense>
                             <OrthographicCamera position={[0, -50, -100]}>
-                                <directionalLight position={[10, 50, 10]} />
+                                <directionalLight position={[10, 60, 200]} />
                                 <group>
                                     <OceanModel />
                                     <BoatModel />
