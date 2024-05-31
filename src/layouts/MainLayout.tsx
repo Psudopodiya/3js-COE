@@ -1,6 +1,7 @@
-import BoatModel from "@/components/BoatModel";
-import OceanModel from "@/components/OceanModel.tsx";
-import PythonModel from "@/components/PythonModel.tsx";
+import BoatModel from "@/components/models/BoatModel.tsx";
+import OceanModel from "@/components/models/OceanModel.tsx";
+import PythonModel from "@/components/models/PythonModel.tsx";
+import QuizModel from "@/components/models/QuizModel.tsx";
 import { keyboardMap } from "@/constants";
 import {
     KeyboardControls,
@@ -11,22 +12,33 @@ import { Canvas, extend } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState } from "react";
 
-import PythonHome from "@/pages/pythonHome.tsx";
+import PythonModal from "@/components/modals/PythonModal.tsx";
+import QuizModal from "@/components/modals/QuizModal.tsx";
 
 extend({ OrthographicCamera, OrbitControls });
 
+type ModalMap = Record<string, JSX.Element>;
+
 const MainLayout = () => {
+    const [modal, setModal] = useState<string>("");
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    const openPython = () => setIsModalOpen(true);
-    const closePython = () => setIsModalOpen(false);
+    const openModal = (key: string) => {
+        setIsModalOpen(true);
+        setModal(key);
+    };
+    const closeModal = () => setIsModalOpen(false);
 
     const map = isModalOpen ? [] : keyboardMap;
+    const modalMap: ModalMap = {
+        python: <PythonModal closeModal={closeModal} />,
+        quiz: <QuizModal closeModal={closeModal} />,
+    };
 
     return (
         <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
             <div className="relative z-10">
-                {isModalOpen && <PythonHome closeModal={closePython} />}
+                {isModalOpen && modalMap[modal]}
             </div>
             <KeyboardControls map={map}>
                 <Canvas
@@ -39,12 +51,13 @@ const MainLayout = () => {
                 >
                     <Physics debug gravity={[0, -9.8, 0]}>
                         <Suspense>
-                            <OrthographicCamera position={[0, -50, -100]}>
-                                <directionalLight position={[10, 60, 200]} />
+                            <OrthographicCamera position={[0, -100, -100]}>
+                                <directionalLight position={[500, 500, 500]} />
                                 <group>
                                     <OceanModel />
                                     <BoatModel />
-                                    <PythonModel openModal={openPython} />
+                                    <QuizModel openModal={openModal} />
+                                    <PythonModel openModal={openModal} />
                                 </group>
                                 <OrbitControls
                                     minPolarAngle={Math.PI / 4 + Math.PI / 6}

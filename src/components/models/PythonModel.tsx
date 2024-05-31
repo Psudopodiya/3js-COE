@@ -1,37 +1,34 @@
 import { useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 type Props = {
-    openModal: () => void;
+    openModal: (key: string) => void;
 };
 
 function PythonModel({ openModal }: Props) {
     const { scene } = useGLTF("./python.glb");
 
-    const islandRef = useRef<RigidBody>(null);
     const { camera } = useThree();
     const [collisionDetected, setCollisionDetected] = useState(false);
 
     const handleCollision = () => {
         setCollisionDetected(true);
-        openModal();
+        openModal("python");
     };
 
     useFrame(() => {
-        if (collisionDetected && islandRef.current) {
-            const position = islandRef.current.translation();
-            camera.position.copy(position);
-            camera.position.z += 50;
-            camera.position.y += 50;
-            camera.lookAt(position.x, position.y + 50, position.z);
+        if (collisionDetected) {
+            camera.position.x = 0;
+            camera.position.z = -50;
+            camera.position.y = -50;
+            camera.lookAt(-15, -50, -100);
         }
     });
 
     return (
         <RigidBody
-            ref={islandRef}
             type="fixed"
             colliders="trimesh"
             restitution={0.2}
@@ -39,7 +36,7 @@ function PythonModel({ openModal }: Props) {
         >
             <primitive
                 object={scene}
-                position={[-150, 0, -250]}
+                position={[-250, 0, -250]}
                 scale={[75, 75, 75]}
                 rotation={[0, -Math.PI / 2, 0]}
             />
