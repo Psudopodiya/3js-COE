@@ -46,8 +46,8 @@ export default function OceanModel() {
         const bodyPosition = boatRef.current.translation();
         const cameraPosition = new THREE.Vector3();
         cameraPosition.copy(bodyPosition);
-        cameraPosition.z += 100;
-        cameraPosition.y += 50;
+        cameraPosition.z += 200;
+        cameraPosition.y += 150;
 
         const cameraTarget = new THREE.Vector3();
         cameraTarget.copy(bodyPosition);
@@ -71,7 +71,7 @@ export default function OceanModel() {
         >
             <primitive
                 object={nodes.Canoe}
-                position={[0, 5, 0]}
+                position={[0, 5, 100]}
                 scale={[0.1, 0.1, 0.1]}
                 rotation={[0, Math.PI / 2, 0]}
             />

@@ -3,13 +3,13 @@ import gsap from "gsap";
 import { Button } from "@/components/ui/button.tsx";
 import { useEffect, useRef } from "react";
 
-import GlassCard from "@/components/GlassCard";
+import GlassCard from "@/components/GlassCard.tsx";
 
 type Props = {
     closeModal: () => void;
 };
 
-const PythonHomePage = ({ closeModal }: Props) => {
+const QuizModal = ({ closeModal }: Props) => {
     const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const PythonHomePage = ({ closeModal }: Props) => {
                 width: "30%",
                 position: "absolute",
                 top: "10%",
-                right: "5%",
+                left: "5%",
             }}
         >
             <Button
@@ -39,9 +39,9 @@ const PythonHomePage = ({ closeModal }: Props) => {
             >
                 close
             </Button>
-            <h1 className="text-5xl font-bold">Python</h1>
+            <h1 className="text-5xl font-bold">Quiz</h1>
         </GlassCard>
     );
 };
 
-export default PythonHomePage;
+export default QuizModal;
