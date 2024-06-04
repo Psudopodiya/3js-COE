@@ -1,16 +1,14 @@
 import gsap from "gsap";
 
 import { Button } from "@/components/ui/button.tsx";
+import useStore from "@/stores/useStore";
 import { useEffect, useRef } from "react";
 
 import GlassCard from "@/components/GlassCard.tsx";
 
-type Props = {
-    closeModal: () => void;
-};
-
-const QuizModal = ({ closeModal }: Props) => {
+const QuizModal = () => {
     const cardRef = useRef<HTMLDivElement>(null);
+    const closeModal = useStore((state) => state.closeModal);
 
     useEffect(() => {
         gsap.fromTo(
