@@ -1,34 +1,21 @@
+import useStore from "@/stores/useStore";
 import { useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { RigidBody } from "@react-three/rapier";
-import { useState } from "react";
+import { RapierRigidBody, RigidBody } from "@react-three/rapier";
+import { useRef } from "react";
 
-type Props = {
-    openModal: (key: string) => void;
-};
-
-function QuizModel({ openModal }: Props) {
+function QuizModel() {
     const { scene } = useGLTF("./quiz.glb");
-    const { camera } = useThree();
 
-    const [collisionDetected, setCollisionDetected] = useState(false);
+    const quizRef = useRef<RapierRigidBody | null>(null);
+    const openModal = useStore((state) => state.openModal);
 
     const handleCollision = () => {
-        setCollisionDetected(true);
-        openModal("quiz");
+        openModal("quiz", quizRef.current);
     };
-
-    useFrame(() => {
-        if (collisionDetected) {
-            camera.position.x = 150;
-            camera.position.y = -50;
-            camera.position.z = -100;
-            camera.lookAt(150, -50, -100);
-        }
-    });
 
     return (
         <RigidBody
+            ref={quizRef}
             type="fixed"
             colliders="trimesh"
             onCollisionEnter={handleCollision}
