@@ -38,6 +38,8 @@ const MainLayout = () => {
             </div>
             <KeyboardControls map={keyMap}>
                 <Canvas
+                    shadows
+                    camera={{ fov: 75 }}
                     style={{
                         position: "absolute",
                         inset: "0px",
@@ -47,22 +49,12 @@ const MainLayout = () => {
                 >
                     <Physics debug gravity={[0, -9.8, 0]}>
                         <Suspense>
-                            <OrthographicCamera position={[0, -200, -500]}>
-                                <directionalLight position={[500, 500, 500]} />
-                                <group>
-                                    <OceanModel />
-                                    <BoatModel />
-                                    <QuizModel />
-                                    <PythonModel />
-                                </group>
-                                <CameraControls />
-                                <OrbitControls
-                                    minPolarAngle={Math.PI / 4 + Math.PI / 6}
-                                    maxPolarAngle={Math.PI / 2 + Math.PI / 6}
-                                    minAzimuthAngle={-Math.PI / 24}
-                                    maxAzimuthAngle={Math.PI / 24}
-                                />
-                            </OrthographicCamera>
+                            <directionalLight position={[500, 500, 500]} />
+                            <OceanModel />
+                            <BoatModel />
+                            <QuizModel />
+                            <PythonModel />
+                            <CameraControls />
                         </Suspense>
                     </Physics>
                 </Canvas>
