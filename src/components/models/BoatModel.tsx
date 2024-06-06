@@ -15,6 +15,7 @@ function BoatModel() {
 
     const boatRef = useRef<RapierRigidBody>(null);
     const setBoatRef = useStore((state) => state.setBoatRef);
+    const addShell = useStore((state) => state.addShell);
 
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
@@ -22,7 +23,7 @@ function BoatModel() {
 
     useFrame(() => {
         if (boatRef.current) {
-            const { forward, backward, leftward, rightward } = getKeys();
+            const { forward, backward, leftward, rightward, fire } = getKeys();
             const impulse = new THREE.Vector3();
             const torque = new THREE.Vector3();
 
@@ -35,6 +36,11 @@ function BoatModel() {
                 impulse.z += impulseStrength;
                 if (leftward) torque.y -= torqueStrength;
                 if (rightward) torque.y += torqueStrength;
+            }
+            if (fire) {
+                const position = boatRef.current.translation();
+                const rotation = boatRef.current.rotation();
+                addShell({ position, rotation });
             }
 
             const updateImpulse = impulse.applyQuaternion(

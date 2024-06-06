@@ -9,6 +9,7 @@ interface Store {
     position: { x: number; y: number; z: number };
     focusRef: THREE.Object3D | null;
     boatRef: RapierRigidBody | null;
+    shells: unknown[];
     openModal: (
         key: string,
         ref: THREE.Object3D | null,
@@ -17,6 +18,7 @@ interface Store {
     closeModal: () => void;
     setFocusRef: (ref: THREE.Object3D | null) => void;
     setBoatRef: (ref: RapierRigidBody | null) => void;
+    addShell: (newShell: NonNullable<unknown>) => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -25,6 +27,7 @@ const useStore = create<Store>((set) => ({
     position: { x: 0, y: 0, z: 0 },
     focusRef: null,
     boatRef: null,
+    shells: [],
     openModal: (
         key: string,
         ref: THREE.Object3D | null,
@@ -43,6 +46,11 @@ const useStore = create<Store>((set) => ({
     },
     setBoatRef: (ref: RapierRigidBody | null) => {
         set({ boatRef: ref });
+    },
+    addShell: (newShell: NonNullable<unknown>) => {
+        set((state) => ({
+            shells: [...state.shells, newShell],
+        }));
     },
 }));
 
