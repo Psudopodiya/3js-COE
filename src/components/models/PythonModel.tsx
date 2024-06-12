@@ -25,7 +25,7 @@ function PythonModel() {
             <primitive
                 ref={pythonRef}
                 object={scene}
-                position={[-250, 0, -250]}
+                position={[-350, 0, -250]}
                 scale={[75, 75, 75]}
                 rotation={[0, -Math.PI / 2, 0]}
                 onClick={handleCollision}
