@@ -1,10 +1,10 @@
 import gsap from "gsap";
 
-import { Button } from "@/components/ui/button.tsx";
 import useStore from "@/stores/useStore";
 import { useEffect, useRef } from "react";
 
 import GlassCard from "@/components/GlassCard.tsx";
+import CourseFeatures from "../CourseFeatures";
 
 const PythonModal = () => {
     const cardRef = useRef<HTMLDivElement>(null);
@@ -23,21 +23,32 @@ const PythonModal = () => {
             ref={cardRef}
             style={{
                 height: "75%",
-                width: "30%",
+                width: "28%",
                 position: "absolute",
                 top: "10%",
-                right: "5%",
+                right: "10%",
             }}
         >
-            <Button
-                className="absolute right-4 top-4 rounded-xl bg-black text-white hover:text-black"
-                variant="secondary"
-                size="lg"
+            <div className="space-y-3">
+
+            <h1 className="text-2xl font-bold mx-[40%]">Python</h1>
+            <CourseFeatures
+                duration="3 hours"
+                lectures={46}
+                skillLevel="All level"
+                language="English"
+                assessments={true}
+                quizzes="NA"
+            />
+            
+            <button
+                className="absolute top-[-1rem] right-[-5rem] mt-5 p-5 w-16 h-16 rounded-full bg-white/65 border-none text-black text-2xl ring-1 ring-black/5 backdrop-blur-xl z-10"
                 onClick={closeModal}
             >
-                close
-            </Button>
-            <h1 className="text-5xl font-bold">Python</h1>
+                <img src="../public/cross.png" />
+            </button>
+            </div>
+            
         </GlassCard>
     );
 };
