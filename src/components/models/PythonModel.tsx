@@ -1,31 +1,19 @@
+import useStore from "@/stores/useStore";
 import { useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
-import { useState } from "react";
+import { useRef } from "react";
 
-type Props = {
-    openModal: (key: string) => void;
-};
+import * as THREE from "three";
 
-function PythonModel({ openModal }: Props) {
+function PythonModel() {
     const { scene } = useGLTF("./python.glb");
 
-    const { camera } = useThree();
-    const [collisionDetected, setCollisionDetected] = useState(false);
+    const pythonRef = useRef<THREE.Object3D | null>(null);
+    const openModal = useStore((state) => state.openModal);
 
     const handleCollision = () => {
-        setCollisionDetected(true);
-        openModal("python");
+        openModal("python", pythonRef.current, { x: 150, y: -50, z: 75 });
     };
-
-    useFrame(() => {
-        if (collisionDetected) {
-            camera.position.x = 0;
-            camera.position.z = -50;
-            camera.position.y = -50;
-            camera.lookAt(-15, -50, -100);
-        }
-    });
 
     return (
         <RigidBody
@@ -35,10 +23,12 @@ function PythonModel({ openModal }: Props) {
             onCollisionEnter={handleCollision}
         >
             <primitive
+                ref={pythonRef}
                 object={scene}
-                position={[-250, 0, -250]}
+                position={[-350, 0, -250]}
                 scale={[75, 75, 75]}
                 rotation={[0, -Math.PI / 2, 0]}
+                onClick={handleCollision}
             />
         </RigidBody>
     );

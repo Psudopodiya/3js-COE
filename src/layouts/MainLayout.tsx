@@ -1,4 +1,6 @@
+import CameraControls from "@/components/CameraControls.tsx";
 import BoatModel from "@/components/models/BoatModel.tsx";
+import LightHouseModel from "@/components/models/LightHouseModel.tsx";
 import OceanModel from "@/components/models/OceanModel.tsx";
 import PythonModel from "@/components/models/PythonModel.tsx";
 import QuizModel from "@/components/models/QuizModel.tsx";
@@ -10,38 +12,38 @@ import {
 } from "@react-three/drei";
 import { Canvas, extend } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 
+import LightHouseModal from "@/components/modals/LightHouseModal.tsx";
 import PythonModal from "@/components/modals/PythonModal.tsx";
 import QuizModal from "@/components/modals/QuizModal.tsx";
+
+import useStore from "@/stores/useStore";
 
 extend({ OrthographicCamera, OrbitControls });
 
 type ModalMap = Record<string, JSX.Element>;
+const modalMap: ModalMap = {
+    python: <PythonModal />,
+    quiz: <QuizModal />,
+    lightHouse: <LightHouseModal />,
+};
 
 const MainLayout = () => {
-    const [modal, setModal] = useState<string>("");
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const modal = useStore((state) => state.modal);
+    const isModalOpen = useStore((state) => state.isModalOpen);
 
-    const openModal = (key: string) => {
-        setIsModalOpen(true);
-        setModal(key);
-    };
-    const closeModal = () => setIsModalOpen(false);
-
-    const map = isModalOpen ? [] : keyboardMap;
-    const modalMap: ModalMap = {
-        python: <PythonModal closeModal={closeModal} />,
-        quiz: <QuizModal closeModal={closeModal} />,
-    };
+    const keyMap = isModalOpen ? [] : keyboardMap;
 
     return (
         <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
             <div className="relative z-10">
                 {isModalOpen && modalMap[modal]}
             </div>
-            <KeyboardControls map={map}>
+            <KeyboardControls map={keyMap}>
                 <Canvas
+                    shadows
+                    camera={{ fov: 75 }}
                     style={{
                         position: "absolute",
                         inset: "0px",
@@ -49,23 +51,15 @@ const MainLayout = () => {
                         cursor: "pointer",
                     }}
                 >
-                    <Physics debug gravity={[0, -9.8, 0]}>
+                    <Physics gravity={[0, -9.8, 0]}>
                         <Suspense>
-                            <OrthographicCamera position={[0, -100, -100]}>
-                                <directionalLight position={[500, 500, 500]} />
-                                <group>
-                                    <OceanModel />
-                                    <BoatModel />
-                                    <QuizModel openModal={openModal} />
-                                    <PythonModel openModal={openModal} />
-                                </group>
-                                <OrbitControls
-                                    minPolarAngle={Math.PI / 4 + Math.PI / 6}
-                                    maxPolarAngle={Math.PI / 2 + Math.PI / 6}
-                                    minAzimuthAngle={-Math.PI / 24}
-                                    maxAzimuthAngle={Math.PI / 24}
-                                />
-                            </OrthographicCamera>
+                            <directionalLight position={[500, 500, 500]} />
+                            <OceanModel />
+                            <BoatModel />
+                            <QuizModel />
+                            <PythonModel />
+                            <LightHouseModel />
+                            <CameraControls />
                         </Suspense>
                     </Physics>
                 </Canvas>
@@ -73,4 +67,5 @@ const MainLayout = () => {
         </div>
     );
 };
+
 export default MainLayout;

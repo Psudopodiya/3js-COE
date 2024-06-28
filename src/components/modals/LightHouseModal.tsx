@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 
 import GlassCard from "@/components/GlassCard.tsx";
 
-const QuizModal = () => {
+const LightHouseModal = () => {
     const cardRef = useRef<HTMLDivElement>(null);
     const closeModal = useStore((state) => state.closeModal);
 
@@ -23,7 +23,7 @@ const QuizModal = () => {
             ref={cardRef}
             style={{
                 height: "75%",
-                width: "30%",
+                width: "35%",
                 position: "absolute",
                 top: "10%",
                 left: "5%",
@@ -37,9 +37,9 @@ const QuizModal = () => {
             >
                 close
             </Button>
-            <h1 className="text-5xl font-bold">Quiz</h1>
+            <h1 className="text-5xl font-bold">Light House</h1>
         </GlassCard>
     );
 };
 
-export default QuizModal;
+export default LightHouseModal;
