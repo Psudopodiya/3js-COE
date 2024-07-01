@@ -16,6 +16,7 @@ import { Suspense } from "react";
 import PythonModal from "@/components/modals/PythonModal.tsx";
 import QuizModal from "@/components/modals/QuizModal.tsx";
 import useStore from "@/stores/useStore";
+import * as THREE from "three";
 
 extend({ OrthographicCamera, OrbitControls });
 
@@ -30,6 +31,18 @@ const MainLayout = () => {
     const isModalOpen = useStore((state) => state.isModalOpen);
 
     const keyMap = isModalOpen ? [] : keyboardMap;
+
+    const listener = new THREE.AudioListener();
+    const sound = new THREE.Audio(listener);
+
+    // load a sound and set it as the Audio object's buffer
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load("./bink's_sake.mp3", function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(0.1);
+        sound.play();
+    });
 
     return (
         <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
@@ -47,7 +60,7 @@ const MainLayout = () => {
                         cursor: "pointer",
                     }}
                 >
-                    <Physics debug gravity={[0, -9.8, 0]}>
+                    <Physics gravity={[0, -9.8, 0]}>
                         <Suspense>
                             <directionalLight position={[500, 500, 500]} />
                             <OceanModel />
