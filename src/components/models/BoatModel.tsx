@@ -10,7 +10,7 @@ const impulseStrength = 7000;
 const torqueStrength = 5000;
 
 function BoatModel() {
-    const { nodes } = useGLTF("./boat.glb");
+    const { scene } = useGLTF("./ship.glb");
     const [, getKeys] = useKeyboardControls();
 
     const boatRef = useRef<RapierRigidBody>(null);
@@ -55,9 +55,9 @@ function BoatModel() {
             colliders="cuboid"
         >
             <primitive
-                object={nodes.Canoe}
-                position={[0, 5, 100]}
-                scale={[0.1, 0.1, 0.1]}
+                object={scene}
+                position={[0, 0, 90]}
+                scale={[15, 15, 15]}
                 rotation={[0, Math.PI / 2, 0]}
             />
         </RigidBody>
