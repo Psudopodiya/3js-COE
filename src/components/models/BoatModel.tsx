@@ -6,8 +6,8 @@ import { useEffect, useRef } from "react";
 
 import * as THREE from "three";
 
-const impulseStrength = 7000;
-const torqueStrength = 5000;
+const impulseStrength = 120000;
+const torqueStrength = 120000;
 
 function BoatModel() {
     const { scene } = useGLTF("./ship.glb");
@@ -56,8 +56,8 @@ function BoatModel() {
         >
             <primitive
                 object={scene}
-                position={[0, 0, 90]}
-                scale={[15, 15, 15]}
+                position={[0, 15, 90]}
+                scale={[20, 20, 20]}
                 rotation={[0, Math.PI / 2, 0]}
             />
         </RigidBody>
