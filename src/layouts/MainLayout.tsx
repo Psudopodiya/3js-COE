@@ -9,9 +9,9 @@ import {
     OrbitControls,
     OrthographicCamera,
 } from "@react-three/drei";
-import { Canvas, extend } from "@react-three/fiber";
+import { Canvas, extend, useThree } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 import PythonModal from "@/components/modals/PythonModal.tsx";
 import QuizModal from "@/components/modals/QuizModal.tsx";
@@ -24,6 +24,32 @@ type ModalMap = Record<string, JSX.Element>;
 const modalMap: ModalMap = {
     python: <PythonModal />,
     quiz: <QuizModal />,
+};
+
+const AudioPlayer = () => {
+    const { camera } = useThree();
+
+    useEffect(() => {
+        const listener = new THREE.AudioListener();
+        camera.add(listener);
+
+        const sound = new THREE.Audio(listener);
+        const audioLoader = new THREE.AudioLoader();
+
+        audioLoader.load("./bink's_Sake.mp3", function (buffer) {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(0.5);
+            sound.play();
+        });
+
+        return () => {
+            sound.stop();
+            camera.remove(listener);
+        };
+    }, [camera]);
+
+    return null;
 };
 
 const MainLayout = () => {
@@ -62,6 +88,7 @@ const MainLayout = () => {
                 >
                     <Physics gravity={[0, -9.8, 0]}>
                         <Suspense>
+                            <AudioPlayer />
                             <directionalLight position={[500, 500, 500]} />
                             <OceanModel />
                             <BoatModel />
