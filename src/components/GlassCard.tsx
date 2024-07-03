@@ -14,7 +14,7 @@ const GlassCard = forwardRef<HTMLDivElement, Props>(
             >
                 <div
                     style={style}
-                    className="flex h-3/4 w-3/4 justify-center rounded-3xl bg-white/20 p-20 px-24 shadow-2xl ring-1 ring-black/5 backdrop-blur-xl"
+                    className="flex-col h-5/6 w-4/5 justify-center rounded-3xl bg-white/20 p-2 shadow-2xl ring-1 ring-black/5 backdrop-blur-xl"
                 >
                     {children}
                 </div>

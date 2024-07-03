@@ -1,5 +1,6 @@
 import CameraControls from "@/components/CameraControls.tsx";
 import BoatModel from "@/components/models/BoatModel.tsx";
+import LightHouseModel from "@/components/models/LightHouseModel.tsx";
 import OceanModel from "@/components/models/OceanModel.tsx";
 import PythonModel from "@/components/models/PythonModel.tsx";
 import QuizModel from "@/components/models/QuizModel.tsx";
@@ -14,8 +15,10 @@ import { Canvas, extend } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
 
+import LightHouseModal from "@/components/modals/LightHouseModal.tsx";
 import PythonModal from "@/components/modals/PythonModal.tsx";
 import QuizModal from "@/components/modals/QuizModal.tsx";
+
 import useStore from "@/stores/useStore";
 
 extend({ OrthographicCamera, OrbitControls });
@@ -24,6 +27,7 @@ type ModalMap = Record<string, JSX.Element>;
 const modalMap: ModalMap = {
     python: <PythonModal />,
     quiz: <QuizModal />,
+    lightHouse: <LightHouseModal />,
 };
 
 const MainLayout = () => {
@@ -49,13 +53,14 @@ const MainLayout = () => {
                         cursor: "pointer",
                     }}
                 >
-                    <Physics debug gravity={[0, -9.8, 0]}>
+                    <Physics gravity={[0, -9.8, 0]}>
                         <Suspense>
                             <directionalLight position={[500, 500, 500]} />
                             <OceanModel />
                             <BoatModel />
                             <QuizModel />
                             <PythonModel />
+                            <LightHouseModel />
                             <CameraControls />
                             {shells.map((shell, index) => (
                                 <Shell

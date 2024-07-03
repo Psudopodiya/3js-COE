@@ -1,44 +1,37 @@
-import gsap from "gsap";
-
-import { Button } from "@/components/ui/button.tsx";
-import useStore from "@/stores/useStore";
-import { useEffect, useRef } from "react";
-
-import GlassCard from "@/components/GlassCard.tsx";
+import { Button } from "@/components/ui/button";
+import CourseFeatures from "../CourseFeatures";
+import Tags from "../Tags";
+import DefaultModal from "./DefaultModal";
 
 const QuizModal = () => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const closeModal = useStore((state) => state.closeModal);
-
-    useEffect(() => {
-        gsap.fromTo(
-            cardRef.current,
-            { y: -50 },
-            { y: 0, duration: 2, ease: "power1.out" },
-        );
-    }, []);
+    const tags = [
+        "Beginner",
+        "CLI",
+        "Fundamental Programming",
+        "Java",
+        "JUnit",
+        "Unit Testing",
+        "Testing",
+    ];
 
     return (
-        <GlassCard
-            ref={cardRef}
-            style={{
-                height: "75%",
-                width: "30%",
-                position: "absolute",
-                top: "10%",
-                left: "5%",
-            }}
-        >
-            <Button
-                className="absolute right-4 top-4 rounded-xl bg-black text-white hover:text-black"
-                variant="secondary"
-                size="lg"
-                onClick={closeModal}
-            >
-                close
-            </Button>
-            <h1 className="text-5xl font-bold">Quiz</h1>
-        </GlassCard>
+        <DefaultModal right="60%">
+            <div className="flex flex-col items-center gap-4 w-full h-full">
+                <h1 className="text-3xl font-semibold p-5">Quiz</h1>
+                <CourseFeatures
+                    duration="3 hours"
+                    lectures={46}
+                    skillLevel="All level"
+                    language="English"
+                    assessments={true}
+                    quizzes="NA"
+                />
+                <Tags tags={tags} />
+                <Button className="bg-blue-700/85 backdrop-blur-xl rounded-full w-[95%] h-[10%] font-light text-2xl text-white">
+                    Start Learning
+                </Button>
+            </div>
+        </DefaultModal>
     );
 };
 
