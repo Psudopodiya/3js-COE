@@ -18,7 +18,7 @@ const QuizModal = () => {
 
         <DefaultModal>
             <div className="flex flex-col items-center gap-4 w-full h-full">
-                <h1 className="text-3xl font-semibold text-white p-5">Quiz</h1>
+                <h1 className="text-3xl font-semibold p-5">Quiz</h1>
                 <CourseFeatures
                     duration="3 hours"
                     lectures={46}
