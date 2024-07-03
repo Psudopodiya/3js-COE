@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import CourseFeatures from "../CourseFeatures";
-import DefaultModal from "./DefaultModal";
 import Tags from "../Tags";
+import DefaultModal from "./DefaultModal";
 
 const QuizModal = () => {
     const tags = [
@@ -12,11 +12,10 @@ const QuizModal = () => {
         "JUnit",
         "Unit Testing",
         "Testing",
-      ];
+    ];
 
     return (
-
-        <DefaultModal>
+        <DefaultModal right="60%">
             <div className="flex flex-col items-center gap-4 w-full h-full">
                 <h1 className="text-3xl font-semibold p-5">Quiz</h1>
                 <CourseFeatures
@@ -27,8 +26,10 @@ const QuizModal = () => {
                     assessments={true}
                     quizzes="NA"
                 />
-                <Tags tags={tags}/>
-                <Button className="bg-blue-700/85 backdrop-blur-xl rounded-full w-[95%] h-[10%] font-light text-2xl text-white">Start Learning</Button>
+                <Tags tags={tags} />
+                <Button className="bg-blue-700/85 backdrop-blur-xl rounded-full w-[95%] h-[10%] font-light text-2xl text-white">
+                    Start Learning
+                </Button>
             </div>
         </DefaultModal>
     );
