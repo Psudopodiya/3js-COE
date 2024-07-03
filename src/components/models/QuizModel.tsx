@@ -26,7 +26,7 @@ function QuizModel() {
                 object={scene}
                 scale={[75, 75, 75]}
                 rotation={[0, -Math.PI / 1.5, 0]}
-                position={[250, -25, -250]}
+                position={[350, -25, -250]}
                 onClick={handleCollision}
             />
         </RigidBody>

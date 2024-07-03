@@ -1,5 +1,6 @@
 import CameraControls from "@/components/CameraControls.tsx";
 import BoatModel from "@/components/models/BoatModel.tsx";
+import LightHouseModel from "@/components/models/LightHouseModel.tsx";
 import OceanModel from "@/components/models/OceanModel.tsx";
 import PythonModel from "@/components/models/PythonModel.tsx";
 import QuizModel from "@/components/models/QuizModel.tsx";
@@ -13,8 +14,10 @@ import { Canvas, extend, useThree } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useEffect } from "react";
 
+import LightHouseModal from "@/components/modals/LightHouseModal.tsx";
 import PythonModal from "@/components/modals/PythonModal.tsx";
 import QuizModal from "@/components/modals/QuizModal.tsx";
+
 import useStore from "@/stores/useStore";
 import * as THREE from "three";
 
@@ -24,6 +27,7 @@ type ModalMap = Record<string, JSX.Element>;
 const modalMap: ModalMap = {
     python: <PythonModal />,
     quiz: <QuizModal />,
+    lightHouse: <LightHouseModal />,
 };
 
 const AudioPlayer = () => {
@@ -94,6 +98,7 @@ const MainLayout = () => {
                             <BoatModel />
                             <QuizModel />
                             <PythonModel />
+                            <LightHouseModel />
                             <CameraControls />
                         </Suspense>
                     </Physics>
