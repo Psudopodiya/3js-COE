@@ -26,8 +26,8 @@ function CameraControls() {
         if (bodyPosition) {
             const cameraPosition = new THREE.Vector3();
             cameraPosition.copy(bodyPosition);
-            cameraPosition.z += 250 + position.z;
-            cameraPosition.y += 150 + position.y;
+            cameraPosition.z += 300 + position.z;
+            cameraPosition.y += 200 + position.y;
             cameraPosition.x += position.x;
 
             const cameraTarget = new THREE.Vector3();
