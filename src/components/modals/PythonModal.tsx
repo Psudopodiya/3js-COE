@@ -1,55 +1,35 @@
-import gsap from "gsap";
-
-import useStore from "@/stores/useStore";
-import { useEffect, useRef } from "react";
-
-import GlassCard from "@/components/GlassCard.tsx";
+import { Button } from "@/components/ui/button";
 import CourseFeatures from "../CourseFeatures";
+import DefaultModal from "./DefaultModal";
+import Tags from "../Tags";
 
 const PythonModal = () => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const closeModal = useStore((state) => state.closeModal);
-
-    useEffect(() => {
-        gsap.fromTo(
-            cardRef.current,
-            { y: -50 },
-            { y: 0, duration: 2, ease: "power1.out" },
-        );
-    }, []);
-
+    const tags = [
+        "Beginner",
+        "CLI",
+        "Fundamental Programming",
+        "Java",
+        "JUnit",
+        "Unit Testing",
+        "Testing",
+      ];
+    
     return (
-        <GlassCard
-            ref={cardRef}
-            style={{
-                height: "75%",
-                width: "28%",
-                position: "absolute",
-                top: "10%",
-                right: "10%",
-            }}
-        >
-            <div className="space-y-3">
-
-            <h1 className="text-2xl font-bold mx-[40%]">Python</h1>
-            <CourseFeatures
-                duration="3 hours"
-                lectures={46}
-                skillLevel="All level"
-                language="English"
-                assessments={true}
-                quizzes="NA"
-            />
-            
-            <button
-                className="absolute top-[-1rem] right-[-5rem] mt-5 p-5 w-16 h-16 rounded-full bg-white/65 border-none text-black text-2xl ring-1 ring-black/5 backdrop-blur-xl z-10"
-                onClick={closeModal}
-            >
-                <img src="../public/cross.png" />
-            </button>
+        <DefaultModal>
+            <div className="flex flex-col items-center gap-4 w-full h-full">
+                <h1 className="text-3xl font-semibold text-white p-5">Python Basics</h1>
+                <CourseFeatures
+                    duration="3 hours"
+                    lectures={46}
+                    skillLevel="All level"
+                    language="English"
+                    assessments={true}
+                    quizzes="NA"
+                />
+                <Tags tags={tags}/>
+                <Button className="bg-blue-700/85 backdrop-blur-xl rounded-full w-[95%] h-[10%] font-light text-2xl text-white">Start Learning</Button>
             </div>
-            
-        </GlassCard>
+        </DefaultModal>
     );
 };
 
