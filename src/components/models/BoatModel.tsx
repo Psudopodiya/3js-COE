@@ -2,7 +2,7 @@ import useStore from "@/stores/useStore";
 import { useGLTF, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody, RigidBody } from "@react-three/rapier";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import * as THREE from "three";
 
@@ -17,6 +17,8 @@ function BoatModel() {
     const { setBoatRef, addShell, shellIndex, incrementShellIndex } = useStore(
         (state) => state,
     );
+
+    const [canFire, setCanFire] = useState(true);
 
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
@@ -38,11 +40,14 @@ function BoatModel() {
                 if (leftward) torque.y -= torqueStrength;
                 if (rightward) torque.y += torqueStrength;
             }
-            if (fire) {
+            if (fire && canFire) {
                 const position = boatRef.current.translation();
                 const rotation = boatRef.current.rotation();
                 addShell({ shellIndex, position, rotation });
                 incrementShellIndex();
+                setCanFire(false);
+            } else if (!fire && !canFire) {
+                setCanFire(true);
             }
 
             const updateImpulse = impulse.applyQuaternion(
