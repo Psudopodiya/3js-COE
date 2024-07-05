@@ -10,6 +10,7 @@ interface Store {
     focusRef: THREE.Object3D | null;
     boatRef: RapierRigidBody | null;
     shells: unknown[];
+    shellIndex: number;
     openModal: (
         key: string,
         ref: THREE.Object3D | null,
@@ -19,6 +20,8 @@ interface Store {
     setFocusRef: (ref: THREE.Object3D | null) => void;
     setBoatRef: (ref: RapierRigidBody | null) => void;
     addShell: (newShell: NonNullable<unknown>) => void;
+    removeShell: (shellIndex: number) => void;
+    incrementShellIndex: () => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -28,6 +31,7 @@ const useStore = create<Store>((set) => ({
     focusRef: null,
     boatRef: null,
     shells: [],
+    shellIndex: 0,
     openModal: (
         key: string,
         ref: THREE.Object3D | null,
@@ -50,6 +54,18 @@ const useStore = create<Store>((set) => ({
     addShell: (newShell: NonNullable<unknown>) => {
         set((state) => ({
             shells: [...state.shells, newShell],
+        }));
+    },
+    removeShell: (shellIndex: number) => {
+        set((state) => ({
+            shells: state.shells.filter(
+                (shell: unknown) => shell.shellIndex !== shellIndex,
+            ),
+        }));
+    },
+    incrementShellIndex: () => {
+        set((state) => ({
+            shellIndex: state.shellIndex + 1,
         }));
     },
 }));

@@ -62,9 +62,10 @@ const MainLayout = () => {
                             <PythonModel />
                             <LightHouseModel />
                             <CameraControls />
-                            {shells.map((shell, index) => (
+                            {shells.map((shell) => (
                                 <Shell
-                                    key={index}
+                                    key={shell.shellIndex}
+                                    shellIndex={shell.shellIndex}
                                     boatPosition={shell.position}
                                     rotation={shell.rotation}
                                 />

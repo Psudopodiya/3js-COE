@@ -6,16 +6,17 @@ import { useEffect, useRef } from "react";
 
 import * as THREE from "three";
 
-const impulseStrength = 120000;
-const torqueStrength = 120000;
+const impulseStrength = 400000;
+const torqueStrength = 400000;
 
 function BoatModel() {
     const { scene } = useGLTF("./ship.glb");
     const [, getKeys] = useKeyboardControls();
 
     const boatRef = useRef<RapierRigidBody>(null);
-    const setBoatRef = useStore((state) => state.setBoatRef);
-    const addShell = useStore((state) => state.addShell);
+    const { setBoatRef, addShell, shellIndex, incrementShellIndex } = useStore(
+        (state) => state,
+    );
 
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
@@ -40,7 +41,8 @@ function BoatModel() {
             if (fire) {
                 const position = boatRef.current.translation();
                 const rotation = boatRef.current.rotation();
-                addShell({ position, rotation });
+                addShell({ shellIndex, position, rotation });
+                incrementShellIndex();
             }
 
             const updateImpulse = impulse.applyQuaternion(
