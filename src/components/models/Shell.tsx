@@ -8,18 +8,24 @@ type Props = {
     shellIndex: number;
     boatPosition: THREE.Vector3;
     rotation: THREE.Quaternion;
+    power: number;
 };
 
 const dampingFactor = 0.98;
 
-function Shell({ shellIndex, boatPosition, rotation }: Props): JSX.Element {
+function Shell({
+    shellIndex,
+    boatPosition,
+    rotation,
+    power,
+}: Props): JSX.Element {
     const rigidBodyRef = useRef<RapierRigidBody | null>(null);
 
     const [position, setPosition] = useState<THREE.Vector3 | undefined>();
 
     const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(rotation);
     const initialVelocity = direction
-        .multiplyScalar(500)
+        .multiplyScalar(power)
         .add(new THREE.Vector3(0, 300, 0));
 
     const [velocity, setVelocity] = useState(initialVelocity);

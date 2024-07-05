@@ -19,6 +19,7 @@ function BoatModel() {
     );
 
     const [canFire, setCanFire] = useState(true);
+    const [fireStartTime, setFireStartTime] = useState<number>(Date.now());
 
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
@@ -40,14 +41,19 @@ function BoatModel() {
                 if (leftward) torque.y -= torqueStrength;
                 if (rightward) torque.y += torqueStrength;
             }
-            if (fire && canFire) {
+            if (!fire && !canFire) {
+                const fireDuration = (Date.now() - fireStartTime) / 1000;
+                const power = Math.min(fireDuration * 500, 2000);
+
                 const position = boatRef.current.translation();
                 const rotation = boatRef.current.rotation();
-                addShell({ shellIndex, position, rotation });
+                addShell({ shellIndex, position, rotation, power });
                 incrementShellIndex();
-                setCanFire(false);
-            } else if (!fire && !canFire) {
+
                 setCanFire(true);
+            } else if (fire && canFire) {
+                setFireStartTime(Date.now());
+                setCanFire(false);
             }
 
             const updateImpulse = impulse.applyQuaternion(

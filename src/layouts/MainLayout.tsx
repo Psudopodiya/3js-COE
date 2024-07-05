@@ -68,6 +68,7 @@ const MainLayout = () => {
                                     shellIndex={shell.shellIndex}
                                     boatPosition={shell.position}
                                     rotation={shell.rotation}
+                                    power={shell.power}
                                 />
                             ))}
                         </Suspense>
