@@ -3,12 +3,22 @@ import { create } from "zustand";
 
 import * as THREE from "three";
 
+interface Shell {
+    shellIndex: number;
+    position: THREE.Vector3;
+    rotation: THREE.Quaternion;
+    power: number;
+    boatVelocity: THREE.Vector3;
+}
+
 interface Store {
     modal: string;
     isModalOpen: boolean;
     position: { x: number; y: number; z: number };
     focusRef: THREE.Object3D | null;
     boatRef: RapierRigidBody | null;
+    shells: Shell[];
+    shellIndex: number;
     openModal: (
         key: string,
         ref: THREE.Object3D | null,
@@ -17,6 +27,9 @@ interface Store {
     closeModal: () => void;
     setFocusRef: (ref: THREE.Object3D | null) => void;
     setBoatRef: (ref: RapierRigidBody | null) => void;
+    addShell: (newShell: Shell) => void;
+    removeShell: (shellIndex: number) => void;
+    incrementShellIndex: () => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -25,6 +38,8 @@ const useStore = create<Store>((set) => ({
     position: { x: 0, y: 0, z: 0 },
     focusRef: null,
     boatRef: null,
+    shells: [],
+    shellIndex: 0,
     openModal: (
         key: string,
         ref: THREE.Object3D | null,
@@ -43,6 +58,23 @@ const useStore = create<Store>((set) => ({
     },
     setBoatRef: (ref: RapierRigidBody | null) => {
         set({ boatRef: ref });
+    },
+    addShell: (newShell: Shell) => {
+        set((state) => ({
+            shells: [...state.shells, newShell],
+        }));
+    },
+    removeShell: (shellIndex: number) => {
+        set((state) => ({
+            shells: state.shells.filter(
+                (shell: Shell) => shell.shellIndex !== shellIndex,
+            ),
+        }));
+    },
+    incrementShellIndex: () => {
+        set((state) => ({
+            shellIndex: state.shellIndex + 1,
+        }));
     },
 }));
 

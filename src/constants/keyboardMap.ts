@@ -3,4 +3,5 @@ export const keyboardMap = [
     { name: "backward", keys: ["ArrowDown"] },
     { name: "rightward", keys: ["ArrowRight"] },
     { name: "leftward", keys: ["ArrowLeft"] },
+    { name: "fire", keys: ["Space"] },
 ];
