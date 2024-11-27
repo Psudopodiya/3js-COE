@@ -20,7 +20,7 @@ function BoatModel() {
     const [canFire, setCanFire] = useState(true);
     const [fireStartTime, setFireStartTime] = useState<number>(Date.now());
 
-    console.log(nodes);
+    //console.log(nodes);
 
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
