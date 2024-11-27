@@ -1,38 +1,43 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { AuthenticationLayout, PrivateRoute, PublicRoute } from "@/layouts";
-import { HomePage, LoginPage, RegisterPage } from "@/pages";
+import {
+    AuthenticationLayout,
+    MainLayout,
+    PrivateRoute,
+    PublicRoute,
+} from "@/layouts";
+import { LoginPage, RegisterPage } from "@/pages";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <PrivateRoute />,
+        element: <MainLayout />,
         children: [
             {
-                index: true,
-                element: <HomePage />,
-            },
-        ],
-    },
-    {
-        path: "/",
-        element: <PublicRoute />,
-        children: [
-            {
-                path: "/login",
-                element: (
-                    <AuthenticationLayout>
-                        <LoginPage />
-                    </AuthenticationLayout>
-                ),
+                path: "/",
+                element: <PrivateRoute />,
             },
             {
-                path: "/register",
-                element: (
-                    <AuthenticationLayout>
-                        <RegisterPage />
-                    </AuthenticationLayout>
-                ),
+                path: "/",
+                element: <PublicRoute />,
+                children: [
+                    {
+                        path: "/login",
+                        element: (
+                            <AuthenticationLayout>
+                                <LoginPage />
+                            </AuthenticationLayout>
+                        ),
+                    },
+                    {
+                        path: "/register",
+                        element: (
+                            <AuthenticationLayout>
+                                <RegisterPage />
+                            </AuthenticationLayout>
+                        ),
+                    },
+                ],
             },
         ],
     },

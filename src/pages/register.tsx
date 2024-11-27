@@ -59,10 +59,7 @@ export default function RegisterPage() {
             <p className="mb-8">
                 {" "}
                 Already have an account?{" "}
-                <Link
-                    to="/login"
-                    className="text-gray-400 underline hover:text-blue-400"
-                >
+                <Link to="/login" className="underline hover:text-blue-400">
                     Log in
                 </Link>
             </p>
@@ -110,6 +107,7 @@ export default function RegisterPage() {
                             <FormItem>
                                 <FormControl>
                                     <Input
+                                        type="password"
                                         placeholder="Password"
                                         {...field}
                                         className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
@@ -126,6 +124,7 @@ export default function RegisterPage() {
                             <FormItem>
                                 <FormControl>
                                     <Input
+                                        type="password"
                                         placeholder="Confirm password"
                                         {...field}
                                         className="border-0 border-b-[1px] border-gray-400 px-0 text-base text-gray-700 shadow-none"
@@ -137,7 +136,7 @@ export default function RegisterPage() {
                     />
                     <Button
                         type="submit"
-                        className="min-w-full rounded-xl bg-[#fb815a] px-4 py-6 text-white transition duration-300 ease-in-out hover:bg-[#f8754a]"
+                        className="mt-4 min-w-full rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-6 text-white transition duration-300 ease-in-out"
                     >
                         Sign up
                     </Button>
