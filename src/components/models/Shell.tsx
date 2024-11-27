@@ -51,7 +51,7 @@ function Shell({
                 1,
             ).applyQuaternion(rotation);
 
-            const shellOffset = backwardDirection.clone().multiplyScalar(50); // Increased offset to move further back
+            const shellOffset = backwardDirection.clone().multiplyScalar(50);
             const updatedPosition = new THREE.Vector3()
                 .copy(boatPosition)
                 .add(shellOffset);
@@ -63,14 +63,16 @@ function Shell({
             const initialVelocity = forwardDirection
                 .clone()
                 .multiplyScalar(power)
+                .add(boatVelocity)
                 .add(new THREE.Vector3(0, 300, 0));
             setVelocity(initialVelocity);
 
             console.log("Shell initial position:", updatedPosition);
             console.log("Boat position:", boatPosition);
+            console.log("Boat velocity:", boatVelocity);
             console.log("Power:", power);
         }
-    }, [boatPosition, rotation, power]);
+    }, [boatPosition, rotation, power, boatVelocity]);
 
     return (
         <>

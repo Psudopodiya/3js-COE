@@ -3,7 +3,6 @@ import { useGLTF, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody, RigidBody } from "@react-three/rapier";
 import { useEffect, useRef, useState } from "react";
-
 import * as THREE from "three";
 
 const impulseStrength = 400000;
@@ -28,8 +27,8 @@ function BoatModel() {
     useFrame(() => {
         if (boatRef.current) {
             const { forward, backward, leftward, rightward, fire } = getKeys();
-            const impulse = new THREE.Vector3();
-            const torque = new THREE.Vector3();
+            const impulse = new THREE.Vector3(0, 0, 0);
+            const torque = new THREE.Vector3(0, 0, 0);
 
             if (forward) {
                 impulse.z -= impulseStrength;
@@ -50,10 +49,10 @@ function BoatModel() {
                 const boatVelocity = boatRef.current.linvel();
                 addShell({
                     shellIndex,
-                    position,
-                    rotation,
+                    position: new THREE.Vector3(position.x, position.y, position.z),
+                    rotation: new THREE.Quaternion(rotation.x, rotation.y, rotation.z, rotation.w),
                     power,
-                    boatVelocity,
+                    boatVelocity: new THREE.Vector3(boatVelocity.x, boatVelocity.y, boatVelocity.z),
                 });
                 incrementShellIndex();
 
