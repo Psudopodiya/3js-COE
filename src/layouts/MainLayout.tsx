@@ -11,9 +11,9 @@ import {
     OrbitControls,
     OrthographicCamera,
 } from "@react-three/drei";
-import { Canvas, extend, useThree } from "@react-three/fiber";
+import { Canvas, extend } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 
 import LightHouseModal from "@/components/modals/LightHouseModal.tsx";
 import PythonModal from "@/components/modals/PythonModal.tsx";
