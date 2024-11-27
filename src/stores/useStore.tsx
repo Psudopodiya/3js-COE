@@ -8,6 +8,7 @@ interface Shell {
     position: THREE.Vector3;
     rotation: THREE.Quaternion;
     power: number;
+    boatVelocity: THREE.Vector3;
 }
 
 interface Store {

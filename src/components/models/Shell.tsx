@@ -9,6 +9,7 @@ type Props = {
     boatPosition: THREE.Vector3;
     rotation: THREE.Quaternion;
     power: number;
+    boatVelocity: THREE.Vector3;
 };
 
 const dampingFactor = 0.98;
@@ -18,17 +19,12 @@ function Shell({
     boatPosition,
     rotation,
     power,
+    boatVelocity,
 }: Props): JSX.Element {
     const rigidBodyRef = useRef<RapierRigidBody | null>(null);
-
     const [position, setPosition] = useState<THREE.Vector3 | undefined>();
+    const [velocity, setVelocity] = useState<THREE.Vector3 | undefined>();
 
-    const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(rotation);
-    const initialVelocity = direction
-        .multiplyScalar(power)
-        .add(new THREE.Vector3(0, 300, 0));
-
-    const [velocity, setVelocity] = useState(initialVelocity);
     const sphere = new THREE.SphereGeometry(5, 32, 32);
     const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
 
@@ -36,7 +32,7 @@ function Shell({
     const handleCollision = () => removeShell(shellIndex);
 
     useFrame(() => {
-        if (rigidBodyRef.current) {
+        if (rigidBodyRef.current && velocity) {
             const gravity = new THREE.Vector3(0, -9.81, 0);
             const newVelocity = velocity.clone().add(gravity);
 
@@ -49,21 +45,32 @@ function Shell({
 
     useEffect(() => {
         if (boatPosition && rotation) {
-            const updatedPosition = new THREE.Vector3();
-            updatedPosition.copy(boatPosition);
+            const backwardDirection = new THREE.Vector3(
+                0,
+                0,
+                1,
+            ).applyQuaternion(rotation);
 
-            const backwardOffset = direction
-                .clone()
-                .normalize()
-                .multiplyScalar(-50);
-            updatedPosition.add(
-                new THREE.Vector3(backwardOffset.x, 0, backwardOffset.z),
-            );
+            const shellOffset = backwardDirection.clone().multiplyScalar(50); // Increased offset to move further back
+            const updatedPosition = new THREE.Vector3()
+                .copy(boatPosition)
+                .add(shellOffset);
+            updatedPosition.y += 32;
 
-            updatedPosition.y += 30;
             setPosition(updatedPosition);
+
+            const forwardDirection = backwardDirection.clone().negate();
+            const initialVelocity = forwardDirection
+                .clone()
+                .multiplyScalar(power)
+                .add(new THREE.Vector3(0, 300, 0));
+            setVelocity(initialVelocity);
+
+            console.log("Shell initial position:", updatedPosition);
+            console.log("Boat position:", boatPosition);
+            console.log("Power:", power);
         }
-    }, [boatPosition, rotation]);
+    }, [boatPosition, rotation, power]);
 
     return (
         <>

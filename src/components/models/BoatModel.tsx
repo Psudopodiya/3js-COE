@@ -47,7 +47,14 @@ function BoatModel() {
 
                 const position = boatRef.current.translation();
                 const rotation = boatRef.current.rotation();
-                addShell({ shellIndex, position, rotation, power });
+                const boatVelocity = boatRef.current.linvel();
+                addShell({
+                    shellIndex,
+                    position,
+                    rotation,
+                    power,
+                    boatVelocity,
+                });
                 incrementShellIndex();
 
                 setCanFire(true);
