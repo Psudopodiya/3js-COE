@@ -16,6 +16,8 @@ function BoatModel() {
     const boatRef = useRef<RapierRigidBody>(null);
     const setBoatRef = useStore((state) => state.setBoatRef);
 
+    console.log(nodes);
+
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
     }, [boatRef, setBoatRef]);
