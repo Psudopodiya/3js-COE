@@ -4,6 +4,7 @@ import LightHouseModel from "@/components/models/LightHouseModel.tsx";
 import OceanModel from "@/components/models/OceanModel.tsx";
 import PythonModel from "@/components/models/PythonModel.tsx";
 import QuizModel from "@/components/models/QuizModel.tsx";
+import Shell from "@/components/models/Shell.tsx";
 import { keyboardMap } from "@/constants";
 import {
     KeyboardControls,
@@ -32,6 +33,7 @@ const modalMap: ModalMap = {
 const MainLayout = () => {
     const modal = useStore((state) => state.modal);
     const isModalOpen = useStore((state) => state.isModalOpen);
+    const shells = useStore((state) => state.shells);
 
     const keyMap = isModalOpen ? [] : keyboardMap;
 
@@ -60,6 +62,16 @@ const MainLayout = () => {
                             <PythonModel />
                             <LightHouseModel />
                             <CameraControls />
+                            {shells.map((shell) => (
+                                <Shell
+                                    key={shell.shellIndex}
+                                    shellIndex={shell.shellIndex}
+                                    boatPosition={shell.position}
+                                    rotation={shell.rotation}
+                                    power={shell.power}
+                                    boatVelocity={shell.boatVelocity}
+                                />
+                            ))}
                         </Suspense>
                     </Physics>
                 </Canvas>

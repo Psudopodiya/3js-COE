@@ -2,19 +2,24 @@ import useStore from "@/stores/useStore";
 import { useGLTF, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody, RigidBody } from "@react-three/rapier";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import * as THREE from "three";
 
-const impulseStrength = 120000;
-const torqueStrength = 120000;
+const impulseStrength = 400000;
+const torqueStrength = 400000;
 
 function BoatModel() {
     const { scene } = useGLTF("./ship.glb");
     const [, getKeys] = useKeyboardControls();
 
     const boatRef = useRef<RapierRigidBody>(null);
-    const setBoatRef = useStore((state) => state.setBoatRef);
+    const { setBoatRef, addShell, shellIndex, incrementShellIndex } = useStore(
+        (state) => state,
+    );
+
+    const [canFire, setCanFire] = useState(true);
+    const [fireStartTime, setFireStartTime] = useState<number>(Date.now());
 
     useEffect(() => {
         if (boatRef.current) setBoatRef(boatRef.current);
@@ -22,7 +27,7 @@ function BoatModel() {
 
     useFrame(() => {
         if (boatRef.current) {
-            const { forward, backward, leftward, rightward } = getKeys();
+            const { forward, backward, leftward, rightward, fire } = getKeys();
             const impulse = new THREE.Vector3();
             const torque = new THREE.Vector3();
 
@@ -35,6 +40,27 @@ function BoatModel() {
                 impulse.z += impulseStrength;
                 if (leftward) torque.y -= torqueStrength;
                 if (rightward) torque.y += torqueStrength;
+            }
+            if (!fire && !canFire) {
+                const fireDuration = (Date.now() - fireStartTime) / 1000;
+                const power = Math.min(fireDuration * 500, 2000);
+
+                const position = boatRef.current.translation();
+                const rotation = boatRef.current.rotation();
+                const boatVelocity = boatRef.current.linvel();
+                addShell({
+                    shellIndex,
+                    position,
+                    rotation,
+                    power,
+                    boatVelocity,
+                });
+                incrementShellIndex();
+
+                setCanFire(true);
+            } else if (fire && canFire) {
+                setFireStartTime(Date.now());
+                setCanFire(false);
             }
 
             const updateImpulse = impulse.applyQuaternion(
