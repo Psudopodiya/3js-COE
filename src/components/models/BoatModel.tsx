@@ -51,10 +51,23 @@ function BoatModel() {
                 const boatVelocity = boatRef.current.linvel();
                 addShell({
                     shellIndex,
-                    position: new THREE.Vector3(position.x, position.y, position.z),
-                    rotation: new THREE.Quaternion(rotation.x, rotation.y, rotation.z, rotation.w),
+                    position: new THREE.Vector3(
+                        position.x,
+                        position.y,
+                        position.z,
+                    ),
+                    rotation: new THREE.Quaternion(
+                        rotation.x,
+                        rotation.y,
+                        rotation.z,
+                        rotation.w,
+                    ),
                     power,
-                    boatVelocity: new THREE.Vector3(boatVelocity.x, boatVelocity.y, boatVelocity.z),
+                    boatVelocity: new THREE.Vector3(
+                        boatVelocity.x,
+                        boatVelocity.y,
+                        boatVelocity.z,
+                    ),
                 });
                 incrementShellIndex();
 
