@@ -1,4 +1,5 @@
 import CameraControls from "@/components/CameraControls.tsx";
+import WelcomeText from "@/components/WelcomeText";
 import BoatModel from "@/components/models/BoatModel.tsx";
 import LightHouseModel from "@/components/models/LightHouseModel.tsx";
 import OceanModel from "@/components/models/OceanModel.tsx";
@@ -13,7 +14,7 @@ import {
 } from "@react-three/drei";
 import { Canvas, extend } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import LightHouseModal from "@/components/modals/LightHouseModal.tsx";
 import PythonModal from "@/components/modals/PythonModal.tsx";
@@ -36,22 +37,42 @@ const MainLayout = () => {
     const isModalOpen = useStore((state) => state.isModalOpen);
     const shells = useStore((state) => state.shells);
 
+    const [sound, setSound] = useState<THREE.Audio | null>(null);
+
+    useEffect(() => {
+        // Create audio context and elements only on the client side
+        const listener = new THREE.AudioListener();
+        const audioSound = new THREE.Audio(listener);
+
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load("./bink's_sake.mp3", function (buffer) {
+            audioSound.setBuffer(buffer);
+            audioSound.setLoop(true);
+            audioSound.setVolume(0.1);
+            setSound(audioSound);
+        });
+
+        // Cleanup function
+        return () => {
+            if (audioSound) {
+                audioSound.stop();
+            }
+        };
+    }, []);
+
+    const handleStartAudio = () => {
+        if (sound && !sound.isPlaying) {
+            sound.play();
+        }
+    };
+
     const keyMap = isModalOpen ? [] : keyboardMap;
 
-    const listener = new THREE.AudioListener();
-    const sound = new THREE.Audio(listener);
-
-    // load a sound and set it as the Audio object's buffer
-    const audioLoader = new THREE.AudioLoader();
-    audioLoader.load("./bink's_sake.mp3", function (buffer) {
-        sound.setBuffer(buffer);
-        sound.setLoop(true);
-        sound.setVolume(0.1);
-        sound.play();
-    });
-
     return (
-        <div className="relative h-[100vh] w-[100vw] items-center overflow-hidden">
+        <div
+            className="relative h-[100vh] w-[100vw] items-center overflow-hidden"
+            onClick={handleStartAudio}
+        >
             <div className="relative z-10">
                 {isModalOpen && modalMap[modal]}
             </div>
@@ -68,10 +89,10 @@ const MainLayout = () => {
                 >
                     <Physics gravity={[0, -9.8, 0]}>
                         <Suspense>
-                            {/* <AudioPlayer /> */}
                             <directionalLight position={[500, 500, 500]} />
                             <OceanModel />
                             <BoatModel />
+                            <WelcomeText />
                             <QuizModel />
                             <PythonModel />
                             <LightHouseModel />
